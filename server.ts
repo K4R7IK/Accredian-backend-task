@@ -7,7 +7,7 @@ const app = express();
 const prisma = new PrismaClient();
 
 app.use(cors({
-  origin: 'http://localhost:5173'
+  origin: 'https://accredian-refer.netlify.app/'
 }));
 app.use(bodyParser.json());
 
