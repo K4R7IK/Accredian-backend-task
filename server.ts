@@ -6,19 +6,26 @@ import { PrismaClient } from "@prisma/client";
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(cors({
-  origin: 'https://accredian-refer.netlify.app/'
-}));
+// Middleware
+app.use(
+  cors({
+    origin: "https://accredian-refer.netlify.app",
+  }),
+);
 app.use(bodyParser.json());
+
+app.get("/health", (req: Request, res: Response) => {
+  res.status(200).json({ message: "Server is running" });
+});
 
 app.post("/submit", async (req: Request, res: Response) => {
   const { name, email, course } = req.body;
   try {
     const formData = await prisma.formData.create({
       data: {
-        name: name,
-        email: email,
-        course: course,
+        name,
+        email,
+        course,
       },
     });
     res.status(201).json(formData);
